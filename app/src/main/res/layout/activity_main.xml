@@ -70,11 +70,8 @@
             android:hint="introduce los números separados por un coma"
             android:imeActionId="@+id/Txtnum"
             android:inputType="text" />
-
-
-
-
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/R2"
         android:layout_width="match_parent"
@@ -109,5 +106,4 @@
             android:text="Start"
             android:visibility="visible" />
     </RelativeLayout>
-
 </LinearLayout>
