@@ -1,55 +1,97 @@
 package com.rotor.androidapps.domain;
 
 /**
- * Created by Edgar_Rangel on 9/19/2017.
+ * Merge sort algorithm (Top down)
+ * based on pseudocode at Wikipedia "Merge sort" article
+ * @see <a href="http://en.wikipedia.org/wiki/Merge_sort"/>
+ * @author djitz
+ *
  */
-
 public class MergeSort implements SortMethods {
-    private int[] array;
-    private int[] tempMergArr;
-    private int lenght;
 
-    public int[] sort(int[] numbers){
-        this.array = numbers;
-        this.lenght = numbers.length;
-        this.tempMergArr =  new int[lenght];
-        doMergeSort(0, lenght - 1);
-        return numbers;
-    }
-
-    private void doMergeSort(int lowerIndex, int higherIndex){
-        if(lowerIndex < higherIndex){
-            int middle = lowerIndex + (higherIndex - lowerIndex) / 2;
-
-            doMergeSort(lowerIndex, middle);
-
-            doMergeSort(middle + 1, higherIndex);
-
-            mergeParts(lowerIndex, middle, higherIndex);
+    /**
+     * This method sort the input array using top-down
+     * merge sort algorithm.
+     * @param numbers the array of integers to sort.
+     * @return sorted array of integers.
+     */
+    @Override
+    public int[] sort(int[] numbers) {
+        if(numbers.length == 1){
+            return numbers;
         }
-    }
 
-    private void mergeParts(int lowerIndex, int middle, int higherIndex){
-        for (int i = lowerIndex; i <= higherIndex; i++){
-            tempMergArr[i] = array[i];
+        int middle = (int) Math.ceil((double)numbers.length / 2);
+        int[] left = new int[middle];
+
+        int rightLength = 0;
+
+        if (numbers.length % 2 == 0) {
+            rightLength = middle;
+        } else {
+            rightLength = middle - 1;
         }
-        int i = lowerIndex;
-        int j = middle + 1;
-        int k = lowerIndex;
 
-        while(i <= middle && j <= higherIndex){
-            if(tempMergArr[i] <= tempMergArr[j]){
-                array[k] = tempMergArr[i];
-                i++;
+        int[] right = new int[rightLength];
+
+        int leftIndex = 0;
+        int rightIndex = 0;
+
+        for (int i = 0; i < numbers.length; i++) {
+            if(i < middle) {
+                left[leftIndex] = numbers[i];
+                leftIndex++;
             } else {
-                array[k] = tempMergArr[j];
-                j++;
+                right[rightIndex] = numbers[i];
+                rightIndex++;
             }
         }
-        while (i <= middle){
-            array[k] = tempMergArr[i];
-            k++;
-            i++;
+
+        left = sort(left);
+        right = sort(right);
+
+        return merge(left, right);
+    }
+
+    /**
+     * This method merge two integer arrays into a sorted integer array.
+     * @param left first array.
+     * @param right second array.
+     * @return a sorted integer array.
+     */
+    private int[] merge(int[] left, int[] right){
+        int[] result = new int[left.length + right.length];
+        int leftIndex = 0;
+        int rightIndex = 0;
+        int resultIndex = 0;
+
+        while(leftIndex < left.length || rightIndex < right.length){
+            if(leftIndex < left.length && rightIndex < right.length){
+                if(left[leftIndex] < right[rightIndex]){
+                    result[resultIndex] = left[leftIndex];
+                    leftIndex++;
+                    resultIndex++;
+                }
+                else{
+                    result[resultIndex] = right[rightIndex];
+                    rightIndex++;
+                    resultIndex++;
+                }
+            }
+            else if(leftIndex < left.length){
+                for (int i = resultIndex; i < result.length; i++) {
+                    result[i] = left[leftIndex];
+                    leftIndex++;
+                }
+            }
+            else if(rightIndex < right.length){
+                for (int i = resultIndex; i < result.length; i++) {
+                    result[i] = right[rightIndex];
+                    rightIndex++;
+                }
+            }
         }
+
+        return result;
     }
 }

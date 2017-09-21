@@ -2,6 +2,8 @@ package com.rotor.androidapps;
 
 import com.rotor.androidapps.domain.BubbleSort;
 import com.rotor.androidapps.domain.InsertionSort;
+import com.rotor.androidapps.domain.MergeSort;
+import com.rotor.androidapps.domain.QuickSort;
 import com.rotor.androidapps.domain.SelectionSort;
 import com.rotor.androidapps.domain.SortMethods;
 
@@ -46,12 +48,16 @@ public class SortMethodsUnitTest {
 
     @Test
     public void testMergeSortMethod() {
-        /* implementation */
+        method = new MergeSort();
+        outputValues = method.sort(inputValues);
+        Assert.assertTrue(94 == outputValues[4]);
     }
 
     @Test
     public void testQuickSortMethod() {
-        /* implementation */
+        method = new QuickSort();
+        outputValues = method.sort(inputValues);
+        Assert.assertTrue(94 == outputValues[4]);
     }
 
     @Test
