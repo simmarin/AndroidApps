@@ -7,6 +7,7 @@ import com.rotor.androidapps.domain.SortMethods;
 
 import junit.framework.Assert;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.LinkedList;
@@ -20,47 +21,50 @@ import static org.mockito.Mockito.when;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class SortMethodsUnitTest {
+    SortMethods method = null;
+    int[] inputValues, outputValues;
 
-    @Test
-    public void testSortMethodsInterface()  {
-        SortMethods example = mock(SortMethods.class);
-        int[] arrayDemo = { 3,52,12,94,83 };
-        int[] arraySorted = { 3,12,52,83,94 };
-        when(example.sort(arrayDemo)).thenReturn(arraySorted);
-        Assert.assertEquals(arraySorted, example.sort(arrayDemo));
+    @Before
+    public void setup() {
+        inputValues = new int[]{3, 52, 12, 94, 83};
     }
 
     @Test
-    public void testBubbleSortMethod()  {
-        SortMethods example = new BubbleSort();
-        int[] arrayDemo = { 3,52,12,94,83 };
-        int[] result = example.sort(arrayDemo);
-        Assert.assertTrue(94 == result[4]);
+    public void testSortMethodsInterface() {
+        method = mock(SortMethods.class);
+        outputValues = new int[]{ 3,12,52,83,94 };
+        when(method.sort(inputValues)).thenReturn(outputValues);
+        Assert.assertTrue(94 == outputValues[4]);
     }
 
     @Test
-    public void testMergeSortMethod()  {
+    public void testBubbleSortMethod() {
+        method = new BubbleSort();
+        outputValues = method.sort(inputValues);
+        Assert.assertTrue(94 == outputValues[4]);
+    }
+
+    @Test
+    public void testMergeSortMethod() {
         /* implementation */
     }
 
     @Test
-    public void testQuickSortMethod()  {
+    public void testQuickSortMethod() {
         /* implementation */
     }
 
     @Test
-    public void testInsertionSortMethod()  {
-        SortMethods example = new InsertionSort();
-        int[] arrayDemo = { 3,52,12,94,83 };
-        int[] result = example.sort(arrayDemo);
-        Assert.assertTrue(94 == result[4]);
+    public void testInsertionSortMethod() {
+        method = new InsertionSort();
+        outputValues = method.sort(inputValues);
+        Assert.assertTrue(94 == outputValues[4]);
     }
 
     @Test
-    public void testSelectionSortMethod()  {
-        SortMethods example = new SelectionSort();
-        int[] arrayDemo = { 3,52,12,94,83 };
-        int[] result = example.sort(arrayDemo);
-        Assert.assertTrue(94 == result[4]);
+    public void testSelectionSortMethod() {
+        method = new SelectionSort();
+        outputValues = method.sort(inputValues);
+        Assert.assertTrue(94 == outputValues[4]);
     }
 }
