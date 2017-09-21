@@ -1,6 +1,8 @@
 package com.rotor.androidapps;
 
 import com.rotor.androidapps.domain.BubbleSort;
+import com.rotor.androidapps.domain.InsertionSort;
+import com.rotor.androidapps.domain.SelectionSort;
 import com.rotor.androidapps.domain.SortMethods;
 
 import junit.framework.Assert;
@@ -17,7 +19,8 @@ import static org.mockito.Mockito.when;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class ExampleUnitTest {
+public class SortMethodsUnitTest {
+
     @Test
     public void testSortMethodsInterface()  {
         SortMethods example = mock(SortMethods.class);
@@ -43,5 +46,21 @@ public class ExampleUnitTest {
     @Test
     public void testQuickSortMethod()  {
         /* implementation */
+    }
+
+    @Test
+    public void testInsertionSortMethod()  {
+        SortMethods example = new InsertionSort();
+        int[] arrayDemo = { 3,52,12,94,83 };
+        int[] result = example.sort(arrayDemo);
+        Assert.assertTrue(94 == result[4]);
+    }
+
+    @Test
+    public void testSelectionSortMethod()  {
+        SortMethods example = new SelectionSort();
+        int[] arrayDemo = { 3,52,12,94,83 };
+        int[] result = example.sort(arrayDemo);
+        Assert.assertTrue(94 == result[4]);
     }
 }
